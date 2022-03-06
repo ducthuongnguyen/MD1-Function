@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>The JavaScript <i>this</i> Keyword</h1>
+<p>In this example <strong>this</strong> refers to person2, even if it is a method of person1:</p>
+<p id="demo"></p>
+<script>
+    var firstName = 'Khoa', lastName = 'Nguyen';
+    // 2 biến này nằm trong object window
+
+    function showName()
+    {
+        console.log(this.firstName + ' '+ this.lastName);
+    }
+
+    window.showName(); //Khoa Nguyen - this trỏ tới object window
+  //Khoa Nguyen - Object gọi hàm showName vẫn là object window
+</script>
+
+</body>
+</html>

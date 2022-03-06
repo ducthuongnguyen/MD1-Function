@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product management</title>
+</head>
+<style>
+    td {
+        width: 200px;
+        height: 30px;
+    }
+</style>
+<body>
+<h2>Add New Product</h2>
+<input type="text" id="product">
+<button onclick="addProduct()">Add</button>
+<table id="list">
+
+</table>
+<script>
+    let arr = ['iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'Samsung Ultra S20'];
+
+    function display() {
+        let text = '<h3>' + arr.length + ' sản phẩm' + '</h3>';
+        for (let i = 0; i < arr.length; i++) {
+            text += '<tr>';
+            text = text + '<td>' + arr[i] + '</td>'
+                + '<td><button onclick="changeName(' + i + ')">Edit</button></td>'
+                + '<td><button onclick="delProduct(' + i + ')"> Delete</button></td>';
+            text += '</tr>';
+        }
+        document.getElementById('list').innerHTML = text;
+    }
+
+    display()
+
+    function addProduct() {
+        let productName = document.getElementById('product').value;
+        document.getElementById('product').value = '';
+        arr.push(productName);
+        display();
+    }
+
+    function delProduct(index) {
+        alert('Đã xóa sản phẩm ' + arr[index] + ' khỏi danh sách.');
+        arr.splice(index, 1);
+        display()
+    }
+
+    function changeName(index) {
+        let productName = prompt('Nhập tên bạn muốn thay đổi cho sản phẩm ' + arr[index] + ':');
+        arr[index] = productName;
+        display()
+    }
+</script>
+</body>
+</html>
