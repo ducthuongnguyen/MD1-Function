@@ -22,7 +22,7 @@ Cho kết quả hiển thị trên màn hình.-->
     function findStar(x) {
         let findConstel = 'No found';
         for (let i = 0; i < stars.length; i++) {
-            if (x == stars[i].toLowerCase()) {
+            if (x == stars[i].toLowerCase() || x == stars[i].toUpperCase()) {
                 findConstel = 'The ' + stars[i] + ' belong to ' + constellation[i];
             }
         }

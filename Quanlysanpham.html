@@ -15,8 +15,8 @@
 <input type="text" id="product">
 <button onclick="addProduct()">Add</button>
 <span id="alert" style="color: red"></span><br><br>
-<input type="text" id="search">
-<button onclick="searchProduct()" oninput="searchProduct()">Search</button>
+<input type="text" id="search" oninput="searchProduct()">
+<button onclick="searchProduct()">Search</button>
 <br><br>
 <table style="text-align: left" border="1" cellspacing="0">
     <tr>
@@ -84,8 +84,12 @@
     }
 
     function searchProduct() {
-        productSearch.splice(0,productSearch.length);
+        productSearch.splice(0, productSearch.length);
         let search = document.getElementById('search').value;
+        if (search == '') {
+            display();
+            return;
+        }
         let searchTLC = search.toLowerCase();
         let productListTLC = [];
         for (let i = 0; i < productList.length; i++) {
