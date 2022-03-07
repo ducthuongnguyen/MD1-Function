@@ -14,20 +14,33 @@
 <h2>Add New Product</h2>
 <input type="text" id="product">
 <button onclick="addProduct()">Add</button>
-<table id="list">
+<span id="alert" style="color: red"></span><br><br>
+<input type="text" id="search">
+<button onclick="searchProduct()" oninput="searchProduct()">Search</button>
+<br><br>
+<table style="text-align: left" border="1" cellspacing="0">
+    <tr>
+        <th>No.</th>
+        <th>Product's name</th>
+        <th>Edit product</th>
+        <th>Delete product</th>
+    </tr>
+    <tbody id="list">
+    </tbody>
 
 </table>
 <script>
-    let arr = ['iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'Samsung Ultra S20'];
+    let productList = ['iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'Samsung Ultra S20'];
+    let productSearch = [];
 
     function display() {
-        let text = '<h3>' + arr.length + ' sản phẩm' + '</h3>';
-        for (let i = 0; i < arr.length; i++) {
-            text += '<tr>';
-            text = text + '<td>' + arr[i] + '</td>'
-                + '<td><button onclick="changeName(' + i + ')">Edit</button></td>'
-                + '<td><button onclick="delProduct(' + i + ')"> Delete</button></td>';
-            text += '</tr>';
+        let text = '';
+        for (let i = 0; i < productList.length; i++) {
+            text += '<tr>' + '<td style="width: 50px">' + (i + 1) + '</td>' +
+                '<td>' + productList[i] + '</td>' +
+                '<td style="text-align: center"><button onclick="changeName(' + i + ')">Edit</button></td>' +
+                '<td style="text-align: center"><button onclick="delProduct(' + i + ')">Delete</button></td>' +
+                '</tr>';
         }
         document.getElementById('list').innerHTML = text;
     }
@@ -36,21 +49,54 @@
 
     function addProduct() {
         let productName = document.getElementById('product').value;
-        document.getElementById('product').value = '';
-        arr.push(productName);
-        display();
+        if (productName.trim() === '') {
+            document.getElementById('alert').innerHTML = 'Cannot add blank. Please try again!';
+            return;
+        } else {
+            document.getElementById('alert').innerHTML = '<span style="color: green">Added!</span>';
+            document.getElementById('product').value = '';
+            productList.push(productName);
+            display();
+        }
     }
 
     function delProduct(index) {
-        alert('Đã xóa sản phẩm ' + arr[index] + ' khỏi danh sách.');
-        arr.splice(index, 1);
-        display()
+        productList.splice(index, 1);
+        display();
     }
 
     function changeName(index) {
-        let productName = prompt('Nhập tên bạn muốn thay đổi cho sản phẩm ' + arr[index] + ':');
-        arr[index] = productName;
-        display()
+        let productName = prompt('Nhập tên bạn muốn thay đổi cho sản phẩm ' + productList[index] + ':');
+        productList[index] = productName;
+        display();
+    }
+
+    function showListSearch() {
+        let text = '';
+        for (let i = 0; i < productSearch.length; i++) {
+            text += '<tr>' + '<td style="width: 50px">' + (i + 1) + '</td>' +
+                '<td>' + productSearch[i] + '</td>' +
+                '<td style="text-align: center"><button onclick="changeName(' + i + ')">Edit</button></td>' +
+                '<td style="text-align: center"><button onclick="delProduct(' + i + ')">Delete</button></td>' +
+                '</tr>';
+        }
+        document.getElementById('list').innerHTML = text;
+    }
+
+    function searchProduct() {
+        productSearch.splice(0,productSearch.length);
+        let search = document.getElementById('search').value;
+        let searchTLC = search.toLowerCase();
+        let productListTLC = [];
+        for (let i = 0; i < productList.length; i++) {
+            productListTLC.push(productList[i].toLowerCase());
+        }
+        for (let i = 0; i < productListTLC.length; i++) {
+            if (searchTLC === productListTLC[i]) {
+                productSearch.push(productList[i]);
+            }
+        }
+        showListSearch();
     }
 </script>
 </body>
